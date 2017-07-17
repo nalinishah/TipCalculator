@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate {
+extension Double {
+    var asLocaleCurrency :String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.locale = Locale.current
+        return formatter.string(from: self as NSNumber)!
+    }
+}
+
+class ViewController: UIViewController {
    
     @IBOutlet weak var billText: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
@@ -20,7 +29,6 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.billText.delegate = self;
         self.billText.becomeFirstResponder()
     }
     
@@ -46,37 +54,12 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func calculateTip(_ sender: AnyObject) {
         let bill = Double(billText.text!) ?? 0
+        
         let tip = bill * tipPercentages[tipControlIndex]
         let total = bill + tip
         
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
-    }
-    
-    //Ensure only numbers and decimals are accepted when typing via keyboard
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let inverseSet = NSCharacterSet(charactersIn:"0123456789").inverted
-        let components = string.components(separatedBy: inverseSet)
-        let filtered = components.joined(separator: "")
-        
-        if filtered == string {
-            return true
-        } else {
-            if string == "." {
-                let countdots = textField.text!.components(separatedBy:".").count - 1
-                if countdots == 0 {
-                    return true
-                }else{
-                    if countdots > 0 && string == "." {
-                        return false
-                    } else {
-                        return true
-                    }
-                }
-            }else{
-                return false
-            }
-        }
+        tipLabel.text = tip.asLocaleCurrency
+        totalLabel.text = total.asLocaleCurrency
     }
 }
 
