@@ -22,14 +22,14 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
-Constraints - This ensure application is rendered successfully on portrait and landscape modes on iPhone 5, 6, 6Plus, etc
-Implemented UITextFieldDelegate which ensures user can input only numbers and one decimal (currently for US locale)
+- [X] List anything else that you can get done to improve the app functionality!
+1 - Constraints: This ensure application is rendered successfully on portrait and landscape modes on iPhone 5, 6, 6Plus, etc
+2 - Implemented UITextFieldDelegate which ensures user can input only numbers and one decimal (currently for US locale)
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/a/rMzMW' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
