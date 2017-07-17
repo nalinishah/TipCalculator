@@ -11,5 +11,7 @@ import Foundation
 struct Key {
     struct UserDefaults {
         static let tipControlIndexKey = "tipControlIndex"
+        static let billAmount = "billAmount"
+        static let appKillDateTime = "appKillDateTime"
     }
 }
