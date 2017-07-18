@@ -38,7 +38,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Display Persisted Bill Amount if app restarted < 10mins
         getPersistedBillAmount()
+        
+        //Ensure user can start typing bill amount when application launched
         self.billText.becomeFirstResponder()
     }
     
@@ -65,9 +69,11 @@ class ViewController: UIViewController {
         //Get tip%
         tipControlIndex = defaults.integer(forKey: Key.UserDefaults.tipControlIndexKey)
     
-        //Display tip%
         let tip = String(tipPercentages[tipControlIndex] * 100)
+        
+        //Display tip%
         tipDisplayLabel.text = "Tip [" + tip + "%]"
+        
         calculateTip(self)
     }
     
@@ -81,11 +87,13 @@ class ViewController: UIViewController {
 
     @IBAction func calculateTip(_ sender: AnyObject) {
         let bill = Double(billText.text!) ?? persistedBillAmount
-        
         let tip = bill * tipPercentages[tipControlIndex]
         let total = bill + tip
         
+        //Display tip as locale currency
         tipLabel.text = tip.asLocaleCurrency
+        
+        //Display total as locale currency
         totalLabel.text = total.asLocaleCurrency
     }
     
@@ -93,6 +101,7 @@ class ViewController: UIViewController {
         //Get persisted date
         let appKillDate = defaults.object(forKey: Key.UserDefaults.appKillDateTime) as? Date
         let seconds =  Date().seconds(from: appKillDate!)
+        //Check if app restarted within 10 minutes 
         if (seconds > 0) && (seconds < 10 * 60) {
             persistedBillAmount = defaults.double(forKey: Key.UserDefaults.billAmount)
             if (persistedBillAmount > 0.00) {
