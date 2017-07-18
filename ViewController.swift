@@ -25,7 +25,6 @@ extension Date {
 }
 
 class ViewController: UIViewController {
-   
     @IBOutlet weak var billText: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
     
@@ -51,11 +50,13 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
         
         //Set application kill time
-        UserDefaults.standard.set(Date(), forKey:Key.UserDefaults.appKillDateTime)
+        defaults.set(Date(), forKey:Key.UserDefaults.appKillDateTime)
         
         //Persist bill amount
         defaults.set(Double(billText.text!), forKey: Key.UserDefaults.billAmount)
-        UserDefaults.standard.synchronize()
+        
+        //Synchronize UserDefaults
+        defaults.synchronize()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -88,7 +89,7 @@ class ViewController: UIViewController {
         totalLabel.text = total.asLocaleCurrency
     }
     
-    func getPersistedBillAmount() {
+    fileprivate func getPersistedBillAmount() {
         //Get persisted date
         let appKillDate = defaults.object(forKey: Key.UserDefaults.appKillDateTime) as? Date
         let seconds =  Date().seconds(from: appKillDate!)
