@@ -27,13 +27,12 @@ extension Date {
 class ViewController: UIViewController {
     @IBOutlet weak var billText: UITextField!
     @IBOutlet weak var tipLabel: UILabel!
-    
     @IBOutlet weak var tipDisplayLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    
     let tipPercentages = [0.18, 0.20, 0.25]
     var tipControlIndex : Int = 0
     let defaults = UserDefaults.standard
-    var bill : Double = 0.00
     var persistedBillAmount : Double = 0.00
     
     override func viewDidLoad() {
@@ -85,6 +84,7 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
 
+    
     @IBAction func calculateTip(_ sender: AnyObject) {
         let bill = Double(billText.text!) ?? persistedBillAmount
         let tip = bill * tipPercentages[tipControlIndex]
