@@ -88,16 +88,13 @@ class ViewController: UIViewController {
         totalLabel.text = total.asLocaleCurrency
     }
     
-    func getPersistedBillAmount()
-    {
+    func getPersistedBillAmount() {
         //Get persisted date
         let appKillDate = defaults.object(forKey: Key.UserDefaults.appKillDateTime) as? Date
         let seconds =  Date().seconds(from: appKillDate!)
-        if (seconds > 0) && (seconds < 10 * 60)
-        {
+        if (seconds > 0) && (seconds < 10 * 60) {
             persistedBillAmount = defaults.double(forKey: Key.UserDefaults.billAmount)
-            if (persistedBillAmount > 0.00)
-            {
+            if (persistedBillAmount > 0.00) {
                 //display persisted bill amount
                 billText.text = persistedBillAmount.asLocaleCurrency
             }
