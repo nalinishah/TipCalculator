@@ -30,10 +30,12 @@ class ViewController: UIViewController {
     @IBOutlet weak var tipDisplayLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     
-    let tipPercentages = [0.18, 0.20, 0.25]
-    var tipControlIndex : Int = 0
+    @IBOutlet weak var tipTotalView: UIView!
+    @IBOutlet weak var billAmountView: UIView!
+    private let tipPercentages = [0.18, 0.20, 0.25]
+    private var tipControlIndex : Int = 0
     let defaults = UserDefaults.standard
-    var persistedBillAmount : Double = 0.00
+    private var persistedBillAmount : Double = 0.00
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,13 +67,15 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        //animateViews()
+        
         //Get stored tip%
         tipControlIndex = defaults.integer(forKey: Key.UserDefaults.tipControlIndexKey)
     
         let tip = String(tipPercentages[tipControlIndex] * 100)
         
         //Display selected tip%
-        tipDisplayLabel.text = "Tip [" + tip + "%]"
+        tipDisplayLabel.text = "[" + tip + "%]"
         
         calculateTip(self)
     }
@@ -84,7 +88,6 @@ class ViewController: UIViewController {
         view.endEditing(true)
     }
 
-    
     @IBAction func calculateTip(_ sender: AnyObject) {
         let bill = Double(billText.text!) ?? persistedBillAmount
         let tip = bill * tipPercentages[tipControlIndex]
@@ -110,6 +113,17 @@ class ViewController: UIViewController {
                 billText.text = persistedBillAmount.asLocaleCurrency
             }
         }
+    }
+    
+    fileprivate func animateViews() {
+        // Optionally initialize the property to a desired starting value
+        self.billAmountView.alpha = 0
+        self.tipTotalView.alpha = 1
+        UIView.animate(withDuration: 0.4, animations: {
+            // This causes first view to fade in and second view to fade out
+            self.billAmountView.alpha = 1
+            self.tipTotalView.alpha = 0
+        })
     }
 }
 
