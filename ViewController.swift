@@ -66,8 +66,6 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
-        //animateViews()
         
         //Get stored tip%
         tipControlIndex = defaults.integer(forKey: Key.UserDefaults.tipControlIndexKey)
@@ -102,8 +100,14 @@ class ViewController: UIViewController {
     
     fileprivate func getPersistedBillAmount() {
         //Get persisted date
+        var seconds : Int = 0
         let appKillDate = defaults.object(forKey: Key.UserDefaults.appKillDateTime) as? Date
-        let seconds =  Date().seconds(from: appKillDate!)
+        if (appKillDate != nil) {
+            seconds =  Date().seconds(from: (appKillDate)!)
+        }
+        else {
+            seconds = Date().seconds(from: Date())
+        }
         
         //Check if app restarted within 10 minutes
         if (seconds > 0) && (seconds < 10 * 60) {
@@ -113,17 +117,6 @@ class ViewController: UIViewController {
                 billText.text = persistedBillAmount.asLocaleCurrency
             }
         }
-    }
-    
-    fileprivate func animateViews() {
-        // Optionally initialize the property to a desired starting value
-        self.billAmountView.alpha = 0
-        self.tipTotalView.alpha = 1
-        UIView.animate(withDuration: 0.4, animations: {
-            // This causes first view to fade in and second view to fade out
-            self.billAmountView.alpha = 1
-            self.tipTotalView.alpha = 0
-        })
     }
 }
 
