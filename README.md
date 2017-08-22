@@ -68,7 +68,7 @@ Question 2: "Swift uses [Automatic Reference Counting](https://developer.apple.c
 - A strong reference cycle for closure will occur if and only if:
     1 -  Class instance has a strong reference to closure.
     2 -  Closure has a strong reference to class instance. E.g. The closure’s body accesses a property of the instance, such  as  self.someProperty or the closure calls a method on the instance, such as self.someMethod()
-- By replacing a strong  reference with a weak or unowned reference, we break the strong reference cycle and at the same time, we preserve the relationships between the objects. Define a capture in a closure as an unowned or weak reference when the closure and the instance it captures will always refer to each other and will always be deallocated at the same time.
+- Define a capture in a closure as an unowned or weak reference, then the closure and the instance it captures will always refer to each other and will always be deallocated at the same time. By replacing a strong  reference with a weak or unowned reference, we break the strong reference cycle and at the same time, we preserve the relationships between the objects. 
 
 ## License
 
